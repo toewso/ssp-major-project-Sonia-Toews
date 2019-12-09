@@ -30,20 +30,22 @@ require_once("conn.php");
         <input name="search" class="form-control" id="search" type="search" placeholder="Search" aria-label="Search" value="<?php echo (isset($_GET["search"])) ? $_GET["search"] : ""; ?>">
         <button type="submit" id="submit"><i class="fa fa-search"></i></button>
       </form> -->
-
-     <form action="/articles.php" class="my-lg-0 input-group col-md-3 " id="search_container">
+    
+     
+     <form action="/articles.php" class="my-lg-0 input-group col-md-3" id="search_container">
         <input name="search" class="form-control" id="search" type="search" placeholder="Search" aria-label="Search" value="<?php echo (isset($_GET["search"])) ? $_GET["search"] : ""; ?>">
         <button type="submit" id="submit"><i class="fa fa-search"></i></button>
       </form> 
+      
 
-
+  
       <!--COLLAPSE-->
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
+        <span><i class="fas fa-bars"></i></span>
       </button>
 
       <!--DROPDOWN-->
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <div class="collapse navbar-collapse d-flex flex-row-reverse" id="navbarSupportedContent">
         <ul class="navbar-nav">
           <li class="nav-item">
             <a class="nav-link" href="http://<?php echo $_SERVER['SERVER_NAME']; ?>">Home</a>
@@ -89,9 +91,11 @@ require_once("conn.php");
 
         </ul>
       </div>
-        
+
      
   
   </nav>
+
+
 
 <body>

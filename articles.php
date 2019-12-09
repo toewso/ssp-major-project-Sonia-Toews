@@ -54,7 +54,7 @@ require_once("header.php");
             //if query include search
             $search_query = (isset($_GET["search"])) ? $_GET["search"] : false;
         
-
+           
             if($search_query) {
                 // if search query has any value echo
                 echo "<div class='col-12'><h1>Search Results for: $search_query</h1></div>";
@@ -77,34 +77,74 @@ require_once("header.php");
                                ON articles.image_id = images.id
                                LEFT JOIN users
                                ON articles.author_id = users.id";
+             $art_where_query = "";
             if($search_query)  {          
-            $articles_query .=  " WHERE articles.title LIKE '%$search_query%'
+                $art_where_query =  "WHERE articles.title LIKE '%$search_query%'
                                     OR articles.content LIKE '%$search_query%'";
+                $articles_query .= $art_where_query;
                                 }
 
-            $articles_query .=  " ORDER BY articles.date_modified DESC";
+             $current_page = (isset($_GET["page"])) ? $_GET["page"] : 1;
+             $limit = 5;
+             $offset = $limit * ($current_page -1);                   
+
+
+
+            $articles_query .=  " ORDER BY articles.date_modified DESC
+                                    LIMIT $limit OFFSET $offset";
 
             if($article_result = mysqli_query($conn, $articles_query)) {
+                
+                // GET the total count of articles
+                $pagi_query = "SELECT COUNT(*) AS total FROM articles";
+                if ($search_query) {
+                    $pagi_query .= $art_where_query;
+                }
+                $pagi_result = mysqli_query($conn, $pagi_query);
+                $pagi_row = mysqli_fetch_array($pagi_result);
+                $total_articles = $pagi_row["total"];
+
+                $page_count = ceil($total_articles / $limit);
+                //. florr - round down
+                // ceill = round up
+                // round = round down if below 5, round up if aboce 5
+
+                echo "<div class='row'><nav aria-label='Page navigation'><ul class='justify-content-center pagination'>";
+
+                $get_search = ($search_query) ? "$search=" . $search_query : "";
+                if($current_page > 1) { // if you are on pg1 you don't see the prev button
+                    echo "<li class='page-item'><a class='page-link' href='/articles.php?page=".($current_page - 1)."$get_search'>Previous</a></li>";
+                }
+
+                for ($i = 1; $i <= $page_count; $i++) {
+                        echo " <li class='page-item";
+                        if($current_page == $i) echo " active";
+                        echo "'><a href='/articles.php?page=$i".$get_search."'>$i</a></li>";
+                }
+                
+                if ($current_page < $page_count) {
+                    echo "<li class='page-item'><a href='/articles.php?page=".($current_page + 1)."$get_search'>Next</a></li>";
+
+                }
+                
+                    echo "</ul></nav></div>";
+
+
                 while($article_row = mysqli_fetch_array($article_result)) {
                     //print_r($article_row);
                     ?>
 
-                    <div class="card col-8 mb-4">
-                        <div class="row no-gutters">
-                            <div class="col-md-4">
-                                <img src="<?=$article_row["featured_image"]?>" class="card-img">
-                            </div>
-                            <div class="col-md-4">
-                                <div class="card-body">
-                                    <h5 class="card-title">
-                                        <a href="/articles.php?id=<?=$article_row["id"]?>"><?=$article_row["title"]?></a>
-                                    </h5>
-                                    <small class="text-muted"><?="by " .$article_row["first_name"]." ".$article_row["last_name"]?> </small>
-                                    <p>
-                                        <a href="/articles.php?id=<?=$article_row["id"]?>">Read More</a>
-                                    </p>
-                                </div>
-                            </div>
+
+                    <div class="card col-3 m-2">
+                        <img src="<?=$article_row["featured_image"]?>" class="card-img-top">
+                        <div class="card-body">
+                            <h5 class="card-title">
+                                <a href="/articles.php?id=<?=$article_row["id"]?>"><?=$article_row["title"]?></a>
+                            </h5>
+                            <small class="text-muted"><?="by " .$article_row["first_name"]." ".$article_row["last_name"]?> </small>
+                            <p>
+                                <a class="readmore" href="/articles.php?id=<?=$article_row["id"]?>">Read More</a>
+                            </p>
                         </div>
                     </div>
 

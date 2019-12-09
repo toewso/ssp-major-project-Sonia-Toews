@@ -31,15 +31,22 @@ require_once("conn.php");
       <!--SEARCH-->
  
      <!-- <form action="/members.php" class="my-lg-0 input-group col-md-3 " id="search_container">
-        <input name="search" class="form-control" id="search" type="search" placeholder="Search" aria-label="Search" value="<?php echo (isset($_GET["search"])) ? $_GET["search"] : ""; ?>">
-        <button type="submit" id="submit"><i class="fa fa-search"></i></button>
-      </form> -->
-
-     <form action="/articles.php" class="my-lg-0 input-group col-md-3 " id="search_container">
-        <input name="search" class="form-control" id="search" type="search" placeholder="Search" aria-label="Search" value="<?php echo (isset($_GET["search"])) ? $_GET["search"] : ""; ?>">
+        <input name="search" class="form-control" id="search" type="search" placeholder="Search" aria-label="Search" value="<?php //echo (isset($_GET["search"])) ? $_GET["search"] : ""; ?>">
         <button type="submit" id="submit"><i class="fa fa-search"></i></button>
       </form> 
+-->
 
+
+<div class="topnav">
+  <div class="search-container">
+    <form action="/articles.php" id="search_container">
+      <input class="form-control" type="search" placeholder="Search.." name="search" aria-label="Search">
+      <button type="submit"><i class="fa fa-search"></i></button>
+    </form>
+  </div>
+</div>
+
+     
 
       <!--COLLAPSE-->
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
