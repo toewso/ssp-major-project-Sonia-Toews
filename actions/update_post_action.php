@@ -87,7 +87,7 @@ if( isset($_SESSION["user_id"]) && ( $_SESSION["role"] < 3) ):
         // if featured image is anything besides a true value (false) then run the image id query
 
 
-            if(mysqli_query($conn, $query)) { // if the query qorked and inserted into the datebase with no errors
+            if(mysqli_query($conn, $query)) { // if the query worked and inserted into the datebase with no errors
             
                 header("Location: http://" . $_SERVER["SERVER_NAME"] . "/articles.php?id=" . $article_id); // go back to article that was just created using arcitle id that was just set
             } else {
@@ -96,6 +96,7 @@ if( isset($_SESSION["user_id"]) && ( $_SESSION["role"] < 3) ):
         } else {
             // Title or content are empty
             $errors[] = "Please fill out fields";
+           
         }
     elseif(isset($_POST["action"]) && $_POST["action"] == "delete") :
         // Delete the post where the id  

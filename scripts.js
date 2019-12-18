@@ -1,81 +1,259 @@
 
-
-
-
-
-/***********************************
- *
- * SHADOWBOX SLIDE SHOW ARRAY
- 
- *************************************/
-
-
-var imageArray = ["edit_article"];
-
-imageArray.push("image3"); // add 1 new element to end of array
-
-imageArray[0] = "newImage1"; // select an item in the array bay index and set to new value
-
-
-for (var i = 0; i < imageArray.lengthl; i++) {
-
-}
-
-var largeImageUrls = [];
-
-//get all the images in my gallery and store the data-enlarge in the largeImageUrls array
-
-
-$(".gallery-item").each(function(index){
-    largeImageUrls.push( $(this).attr("data-enlarge") );
-
+$(function(){
+    $(".icon_1").click(function(){
+      $(".input").toggleClass("active");
+      $(".whatever").toggleClass("active");
+    })
 });
 
 
 
-//on click of small image
-// get current image index
-
-// on click of next button
-//set the image src = current image index + 1
 
 
-
-// on. ("event type"), "selector", method (function);
-$("body").on('click', '.shadow-box .next', function(e){  
-   // current index is less than the length of images
-   if(currentImageIndex < largeImageUrls.length - 1) {
-       currentImageIndex++;
-   } else {
-       currentImageIndex = 0;
-   }
+/* ----- JavaScript ----- */
+window.onload = function () {
+  /* Cache the popup. */
+  var popup = document.getElementById("popup");
   
-
-   $(".shadow-box-container img").attr("src", "/Images/" + largeImageUrls[currentImageIndex]);
-
-});
-
-$("body").on('click', '.shadow-box .prev', function(e){  
-
-    // current index is less than the length of images
-    if(currentImageIndex > 0) {
-       currentImageIndex--;
-   } else {
-       currentImageIndex = largeImageUrls.length - 1;
-   }
+  /* Show the popup. */
+  popup.classList.remove("hidden");
   
+  /* Fade the popup in */
+  setTimeout(()=>popup.classList.add("fade-in"));
 
-   $(".shadow-box-container img").attr("src", "/Images/" + largeImageUrls[currentImageIndex]);
-});
+  // Get the <span> element that closes the modal
+var span = document.getElementsByClassName("close")[0];
+  
+  /* Close the popup when a city is selected. */
+  function closeWin() {
+    myWindow.close();
+  };
 
+  // When the user clicks on <span> (x), close the modal
+span.onclick = function() {
+    popup.style.display = "none";
+  }
+  
+  // When the user clicks anywhere outside of the modal, close it
+  window.onclick = function(event) {
+    if (event.target == popup) {
+      popup.style.display = "none";
+    }
+  }
+};
 
 
 
 /*
-// click background to hide
-$("body").on("click", ".shadow-box-container", function(e)) {
-   $("body").find(".shadow-box").remove();
-
+$(document).ready(() => {
+  addResizeListeners();
+  setSidenavListeners();
+  setUserDropdownListener();
+  renderChart();
+  setMenuClickListener();
+  setSidenavCloseListener();
 });
 
+// Set constants and grab needed elements
+const sidenavEl = $('.sidenav');
+const gridEl = $('.grid');
+const SIDENAV_ACTIVE_CLASS = 'sidenav--active';
+const GRID_NO_SCROLL_CLASS = 'grid--noscroll';
+
+function toggleClass(el, className) {
+  if (el.hasClass(className)) {
+    el.removeClass(className);
+  } else {
+    el.addClass(className);
+  }
+}
+
+// User avatar dropdown functionality
+function setUserDropdownListener() {
+  const userAvatar = $('.header__avatar');
+
+  userAvatar.on('click', function(e) {
+    const dropdown = $(this).children('.dropdown');
+    toggleClass(dropdown, 'dropdown--active');
+  });
+}
+
+// Sidenav list sliding functionality
+function setSidenavListeners() {
+  const subHeadings = $('.navList__subheading'); console.log('subHeadings: ', subHeadings);
+  const SUBHEADING_OPEN_CLASS = 'navList__subheading--open';
+  const SUBLIST_HIDDEN_CLASS = 'subList--hidden';
+
+  subHeadings.each((i, subHeadingEl) => {
+    $(subHeadingEl).on('click', (e) => {
+      const subListEl = $(subHeadingEl).siblings();
+
+      // Add/remove selected styles to list category heading
+      if (subHeadingEl) {
+        toggleClass($(subHeadingEl), SUBHEADING_OPEN_CLASS);
+      }
+
+      // Reveal/hide the sublist
+      if (subListEl && subListEl.length === 1) {
+        toggleClass($(subListEl), SUBLIST_HIDDEN_CLASS);
+      }
+    });
+  });
+}
+
+// Draw the chart
+function renderChart() {
+  const chart = AmCharts.makeChart( "chartdiv", {
+    "type": "serial",
+    "theme": "light",
+    "dataProvider": [ {
+      "month": "Jan",
+      "visits": 2025
+    }, {
+      "month": "Feb",
+      "visits": 1882
+    }, {
+      "month": "Mar",
+      "visits": 1809
+    }, {
+      "month": "Apr",
+      "visits": 1322
+    }, {
+      "month": "May",
+      "visits": 1122
+    }, {
+      "month": "Jun",
+      "visits": 1114
+    }, {
+      "month": "Jul",
+      "visits": 984
+    }, {
+      "month": "Aug",
+      "visits": 711
+    }, {
+      "month": "Sept",
+      "visits": 665
+    }, {
+      "month": "Oct",
+      "visits": 580
+    } ],
+    "valueAxes": [ {
+      "gridColor": "#FFFFFF",
+      "gridAlpha": 0.2,
+      "dashLength": 0
+    } ],
+    "gridAboveGraphs": true,
+    "startDuration": 1,
+    "graphs": [ {
+      "balloonText": "[[category]]: <b>[[value]]</b>",
+      "fillAlphas": 0.8,
+      "lineAlpha": 0.2,
+      "type": "column",
+      "valueField": "visits"
+    } ],
+    "chartCursor": {
+      "categoryBalloonEnabled": false,
+      "cursorAlpha": 0,
+      "zoomable": false
+    },
+    "categoryField": "month",
+    "categoryAxis": {
+      "gridPosition": "start",
+      "gridAlpha": 0,
+      "tickPosition": "start",
+      "tickLength": 20
+    },
+    "export": {
+      "enabled": false
+    }
+  });
+}
+
+function toggleClass(el, className) {
+  if (el.hasClass(className)) {
+    el.removeClass(className);
+  } else {
+    el.addClass(className);
+  }
+}
+
+// If user opens the menu and then expands the viewport from mobile size without closing the menu,
+// make sure scrolling is enabled again and that sidenav active class is removed
+function addResizeListeners() {
+  $(window).resize(function(e) {
+    const width = window.innerWidth; console.log('width: ', width);
+
+    if (width > 750) {
+      sidenavEl.removeClass(SIDENAV_ACTIVE_CLASS);
+      gridEl.removeClass(GRID_NO_SCROLL_CLASS);
+    }
+  });
+}
+
+// Menu open sidenav icon, shown only on mobile
+function setMenuClickListener() {
+  $('.header__menu').on('click', function(e) { console.log('clicked menu icon');
+    toggleClass(sidenavEl, SIDENAV_ACTIVE_CLASS);
+    toggleClass(gridEl, GRID_NO_SCROLL_CLASS);
+  });
+}
+
+// Sidenav close icon
+function setSidenavCloseListener() {
+  $('.sidenav__brand-close').on('click', function(e) {
+    toggleClass(sidenavEl, SIDENAV_ACTIVE_CLASS);
+    toggleClass(gridEl, GRID_NO_SCROLL_CLASS);
+  });
+}
+
+
+
+
+
+$(document).ready(function(){
+  var zindex = 10;
+  
+  $("div.card").click(function(e){
+    e.preventDefault();
+
+    var isShowing = false;
+
+    if ($(this).hasClass("show")) {
+      isShowing = true
+    }
+
+    if ($("div.cards").hasClass("showing")) {
+      // a card is already in view
+      $("div.card.show")
+        .removeClass("show");
+
+      if (isShowing) {
+        // this card was showing - reset the grid
+        $("div.cards")
+          .removeClass("showing");
+      } else {
+        // this card isn't showing - get in with it
+        $(this)
+          .css({zIndex: zindex})
+          .addClass("show");
+
+      }
+
+      zindex++;
+
+    } else {
+      // no cards in view
+      $("div.cards")
+        .addClass("showing");
+      $(this)
+        .css({zIndex:zindex})
+        .addClass("show");
+
+      zindex++;
+    }
+    
+  });
+});
 */
+
+

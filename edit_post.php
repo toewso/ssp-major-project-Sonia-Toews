@@ -15,18 +15,19 @@ require_once("header.php");
     $article_query = "SELECT  * FROM articles WHERE id = $article_id"; //if I don't find this article don't ouput anything
     if($results = mysqli_query($conn, $article_query)) { // returing results and storing in a var to use for while statement
         while($article_row = mysqli_fetch_array($results)) {
-            print_r($article_row);
+            //print_r($article_row);
 
 ?>
 
 
 
 
-<div class="container">
+<div class="container editpost">
     <div class="row">
-        <div class="col-12"><h2>Edit Post</h2></div>
+        
         <?php include($_SERVER["DOCUMENT_ROOT"] . "/includes/error_check.php"); // php doesn't understand / set to doc root to find the file ?>
-            <form method="post" action="/actions/update_post_action.php" enctype="multipart/form-data" class="col-12">
+            <form method="post" action="/actions/update_post_action.php" enctype="multipart/form-data" class="col-md-8 editform">
+            <h2>Edit Post</h2>
                 <input type="hidden" name="article_id" value="<?=$article_row["id"];?>">
                 <div class="form-group">
                     <label for="title">Title</label>
@@ -36,17 +37,28 @@ require_once("header.php");
                     <label for="content">Content</label>
                     <textarea name="content" id="content" class="form-control" rows="10"><?=$article_row["content"];?></textarea>
                 </div>
-                <div class="form-group">
-                    <label for="featured_image">Featured Image</label>
-                    <input type="file" name="featured_image" id="featured_image" class="form-control">
+                <div class="form-group" id="addfile" >
+                    <label for="featured_image" class="btn btn-outline-secondary">Upload Image
+                        <input hidden type="file" name="featured_image" id="featured_image" class="form-control">
+                    </label>
                 </div>
-                <button class="btn btn-text text-danger" name="action" value="delete">Delete</button>
-                <button class="btn btn-primary" name="action" value="update">Update</button>
+                <div class="form-group btn_update">
+                    <button class="btn btn-success" name="action" value="update">Update</button>
+                </div>
+               
+                <div class="form-group btn_back">
+                    <button class="btn btn-text text-info"><a href="articles.php">Back</a></button>
+                     <div class="form-group btn_delete">
+                        <button class="btn btn-text text-danger" name="action" value="delete">Delete</button>
+                    </div>
+                </div>
+               
+                
+                
+               
             </form>
     </div>
 </div>
-
-
 
 
 

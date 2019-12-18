@@ -16,7 +16,7 @@ if ($user_request = mysqli_query($conn, $user_query) ) : //this only brings back
     while ($user_row = mysqli_fetch_array($user_request)) : // this put reslults in a nice array fname, lname etc
         //print_r($user_row);
 ?>
-<div class="container">
+<div class="container editprofile">
     <div class="row">
         <div class="col-12">
             <h1>Editing <?php echo $user_row["first_name"] . " " . $user_row["last_name"]; ?></h1>
@@ -26,40 +26,41 @@ if ($user_request = mysqli_query($conn, $user_query) ) : //this only brings back
             
             <form action="/actions/edit_user.php" method="post" enctype="multipart/form-data">
                 <input type="hidden" name="user_id" value="<?php echo $user_row["id"]?>">
-                <div class="form-row mb-2">
+                <div class="form-row mb-2 uploadimage">
                             <div class="col">
-                                <div class="form-group">
-                                    <label for="profile_pic">Profile Image</label>
-                                    <input type="file" name="profile_pic" id="profile_pic" class="form-control">
+                                <div class="form-group" id="addfile">
+                                    <label for="profile_pic" class="btn btn-outline-success">Upload Profile Image
+                                    <input type="file" hidden name="profile_pic" id="profile_pic" class="form-control">
+                                    </label>
                                 </div>
                             </div>
                         </div>
                 <div class="form-row">
-                    <div class="col-md-4">
+                    <div class="form-group col-md-4">
                         <input type="text" tabindex="1" name="first_name" placeholder="First Name" class="form-control" value="<?php echo $user_row['first_name'];?>">
                     </div>
-                    <div class="col-md-4">
+                    <div class="form-group col-md-4">
                         <input type="text" tabindex="2" name="last_name" placeholder="Last Name" class="form-control" value="<?php echo $user_row['last_name'];?>">
                     </div>
                 </div>
                 <div class="form-row">
-                    <div class="col-md-8">
+                    <div class="form-group col-md-8">
                         <input type="text" tabindex="3" name="email" placeholder="Email" class="form-control" value="<?php echo $user_row['email'];?>">
                     </div>
                 </div>
                 <div class="form-row">
-                    <div class="col-md-8">
+                    <div class="form-group col-md-8">
                         <input type="text" tabindex="3" name="address" placeholder="Address" class="form-control" value="<?php echo $user_row['address'];?>">
                     </div>
                 </div>
                 <div class="form-row">
-                    <div class="col-md-8">
+                    <div class="form-group col-md-8">
                         <input type="text" tabindex="4" name="address2" placeholder="Address" class="form-control" value="<?php echo $user_row['address2'];?>">
                     </div>
                 </div>
                 
                 <div class="form-row">
-                    <div class="col-md-4">
+                    <div class="form-group col-md-4">
                         <input type="text" tabindex="5" name="city" placeholder="City" class="form-control" value="<?php echo $user_row['city'];?>">
                     </div>
                 
@@ -90,7 +91,7 @@ if ($user_request = mysqli_query($conn, $user_query) ) : //this only brings back
                         <input type="text" tabindex="6" name="postal_code" placeholder="Postal Code" class="form-control" value="<?php echo $user_row['postal_code'];?>">
                     </div>
                 </div>
-                <hr> 
+                 
                 <div class="form-row">
                 <?php
                 if($_SESSION["user_id"] == $user_id || $SESSION["role"] == 1) : // if user session is me (true) then you can edit profile 
@@ -100,7 +101,7 @@ if ($user_request = mysqli_query($conn, $user_query) ) : //this only brings back
                     </div>
                     <div class=" col text-right">
                         <button type="submit" name="action" value="delete" class="btn btn-text text-danger">Delete Account</button>
-                        <button type="submit" tabindex="3" name="action" value="update" class="btn btn-primary">Update Account</button>
+                        <button type="submit" tabindex="3" name="action" value="update" class="btn btn-secondary">Update Account</button>
                     </div>
                     <?php
                 endif;

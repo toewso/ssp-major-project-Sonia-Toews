@@ -5,6 +5,11 @@ require_once("header.php");
 
 <div class="container articles">
     <div class="row">
+    <div class="col-md-12 search-container" id="search-articles"><form action="/articles.php" class="my-lg-0 input-group col-md-3" id="search_container">
+        <input name="search" class="form-control" id="search" type="search" placeholder="Search" aria-label="Search" value="<?php echo (isset($_GET["search"])) ? $_GET["search"] : ""; ?>">
+        <button type="submit" id="submit"><i class="fa fa-search"></i></button>
+      </form> </div>
+    
         <?php
         if(isset($_GET["id"])) {
 
@@ -23,25 +28,29 @@ require_once("header.php");
                     //print_r($article_row);
                 ?>
                 <div class="container edit_article">
-                    <div class="col-md-12"><h1><?=$article_row["title"]?></h1></div> 
-                    <div class="col-md-12">
-                        <figure class="col-md-4">
+                    <div class="row articlerow">
+                
+                    <div class="form articleform col-md-8">
+                    <h2><?=$article_row["title"]?></h2>
+                        <figure class="col-md-12">
                             <img src="<?=$article_row["featured_image"]?>" class="w-100 featured_image">
                         </figure>
                         <p class="text-muted"> Published on <?=date("M jS, Y @ hA", strtotime($article_row["date_created"]))?> by <?=$article_row["first_name"]." ".$article_row["last_name"]?></p> 
-                        <div class="col-md-8">
+                        <div class="col-md-12 titleedit">
                             <p><?=$article_row["content"]?></p>
                         </div>
-                    </div>
-                </div>
+                    
+               
+              
                     
                 <?php
                 // if logged in and the post is yours or you are super admin show edit menu
                         if(isset($_SESSION["user_id"]) && $_SESSION["user_id"] == $article_row["author_id"] ) {  // if logged in and the post is yours. compare the user_id to author of post
-                            echo "<hr>";
-                            echo "<div class='col-12'>";
-                            echo "<a href='edit_post.php?article_id=".$article_row["id"]."' class='btn btn-primary'>Edit Article</a>"; 
-                            echo "</div>";
+                          
+                            echo "<div class='col-md-12 titleedit'>";
+                            echo "<button class='btn btn-outline-secondary'><a id='one' href='edit_post.php?article_id=".$article_row["id"]."'>Edit Project</a></button><a id='two' href='articles.php'>Back</a>"; 
+                        
+                            echo "</div></div></div></div>";
                         }
 
                 }
@@ -57,9 +66,9 @@ require_once("header.php");
            
             if($search_query) {
                 // if search query has any value echo
-                echo "<div class='col-12'><h1>Search Results for: $search_query</h1></div>";
+                echo "<div class='col-md-12'><h2>Search Results for: $search_query</h2></div>";
             } else {
-                echo  "<div class='col-12'><h1>Articles</h1></div>";
+                echo  "<div class='col-md-12'><h1>My Projects</h1></div>";
             }
 
         
@@ -83,7 +92,7 @@ require_once("header.php");
                                     OR articles.content LIKE '%$search_query%'";
                 $articles_query .= $art_where_query;
                                 }
-
+                        
              $current_page = (isset($_GET["page"])) ? $_GET["page"] : 1;
              $limit = 5;
              $offset = $limit * ($current_page -1);                   
@@ -109,7 +118,7 @@ require_once("header.php");
                 // ceill = round up
                 // round = round down if below 5, round up if aboce 5
 
-                echo "<div class='row'><nav aria-label='Page navigation'><ul class='justify-content-center pagination'>";
+                echo "<div class='col-md-12' aria-label='Page navigation'><ul class='justify-content-left pagination'>";
 
                 $get_search = ($search_query) ? "$search=" . $search_query : "";
                 if($current_page > 1) { // if you are on pg1 you don't see the prev button
@@ -118,25 +127,24 @@ require_once("header.php");
 
                 for ($i = 1; $i <= $page_count; $i++) {
                         echo " <li class='page-item";
-                        if($current_page == $i) echo " active";
-                        echo "'><a href='/articles.php?page=$i".$get_search."'>$i</a></li>";
+                        if($current_page == $i) echo "active";
+                        echo "'><a class='page-link' href='/articles.php?page=$i".$get_search."'>Page $i</a></li>";
                 }
                 
                 if ($current_page < $page_count) {
-                    echo "<li class='page-item'><a href='/articles.php?page=".($current_page + 1)."$get_search'>Next</a></li>";
+                    echo "<li class='page-item'><a class='page-link' href='/articles.php?page=".($current_page + 1)."$get_search'>Next</a></li>";
 
                 }
                 
-                    echo "</ul></nav></div>";
+                    echo "</ul></div>";
 
-
+                    echo "<div class='card-deck'>";
                 while($article_row = mysqli_fetch_array($article_result)) {
                     //print_r($article_row);
                     ?>
-
-
-                    <div class="card col-3 m-2">
-                        <img src="<?=$article_row["featured_image"]?>" class="card-img-top">
+                
+                    <div class="card">
+                        <img class="image" src="<?=$article_row["featured_image"]?>" class="card-img-top">
                         <div class="card-body">
                             <h5 class="card-title">
                                 <a href="/articles.php?id=<?=$article_row["id"]?>"><?=$article_row["title"]?></a>
@@ -146,27 +154,22 @@ require_once("header.php");
                                 <a class="readmore" href="/articles.php?id=<?=$article_row["id"]?>">Read More</a>
                             </p>
                         </div>
-                    </div>
+                     </div>
+
+                
 
                 <?php
                 } // end of while
+                echo "</div>";
             } else {
                 echo mysqli_error($conn);
             }
         }
                 ?>
     </div>
+
+   
 </div>
-
-
-
-
-
-
-
-
-
-
 
 
 

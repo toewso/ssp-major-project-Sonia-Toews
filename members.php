@@ -4,22 +4,37 @@ require_once("header.php");
 
 
 <div class="container members">
-    <div class="row">
+    <div>
         <div class="col-12">
-            <h1><?php
+
+       <!-- <div class="wrapper">
+            <div class="whatever">
+                <div class="search-box">
+                    <input type="text" class="input">
+                </div>
+                <div class="icon_items icon_1">
+                    <i class="fas fa-search"></i>
+                </div>
+            </div>
+        </div> -->
+
+        <!--<form action="/members.php" class="my-lg-0 input-group col-md-3 " id="search_container">
+        <input name="search" class="form-control" id="search" type="search" placeholder="Search" aria-label="Search" value="<//?php echo (isset($_GET["search"])) ? $_GET["search"] : ""; ?>">
+      <button type='submit' id='submit'><i class='fa fa-search icon_1'></i></button>
+    </form> -->
+
+            <?php
             if( isset($_GET["search"])) {
-                echo "Search Results for: " . $_GET["search"];
+                echo "<h5>Search Results for: " . $_GET["search"] . "</h5>";
             } else {
-                echo "<h2>";
-                echo "DISCOVER DESIGNERS";
-                echo "</h2>";
+            ?>
+
+            <?php
             }
-            ?></h1>
+            ?>
         </div>
     </div>
-        <hr>
-        
-                <div class="col-md-12">
+                <!--<div class="col-md-12">
                     <div class="card bg-dark text-white">
                         <img src="/assests/logo1.png" class="card-img" alt="...">
                         <div class="card-img-overlay">
@@ -28,7 +43,7 @@ require_once("header.php");
                             <p class="card-text">Last updated 3 mins ago</p>
                         </div>
                     </div>
-                </div>
+                </div>-->
              
         <?php // these are the only fields i want returned in my array, not the whole profile uses too much memory
         $users_query = " SELECT users.id, users.first_name, users.last_name, images.url AS profile_pic 
@@ -52,77 +67,52 @@ require_once("header.php");
             } 
            
 
+            ?>
+            <div class="container mem_cards">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card-columns">
+            <?php
+
         if($users_result = mysqli_query($conn, $users_query)) {
+            //$i = 0;
             while($user_row = mysqli_fetch_array($users_result)) {
+                //$i++;
+
+               /* if($i % 3 == 0) {
+                    $col = "col-md-8";
+                } else {
+                    $col = "col-md-4";
+                }*/
                
-                ?>
-             
+            ?>
 
-
-
-<div class="card mb-3" style="max-width: 540px;">
-  <div class="row no-gutters">
-    <div class="col-md-4">
-      <img src="..." class="card-img" alt="...">
-    </div>
-    <div class="col-md-8">
-      <div class="card-body">
-        <h5 class="card-title">Card title</h5>
-        <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-        <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-      </div>
-    </div>
-  </div>
-</div>
-
-
-
-
-
-                <div class="card-group">
-                    <div class="col-md-4">
-                        <div class="card">
-                           <img src="<?= $user_row["profile_pic"];?>" class="card-img-top">
-                            <div class="card-header">
-                                <h5>
-                                <a href="/profile.php?user_id=<?=$user_row["id"];?>">
-                                <?=$user_row["first_name"]. " " .$user_row["last_name"]?> 
-                                </a>
-                            </h5>
+                            <div class="card" style="width: 18rem;">
+                                <span id="heart-second" value="So" class="heart"><i class="fas fa-heart"></i></span>
+                                <img src="<?= $user_row["profile_pic"];?>" class="card-img-top">
+                                <div class="card-header">
+                                    <h5 class="card-title">
+                                        <center> <a href="/profile.php?user_id=<?=$user_row["id"];?>">
+                                        <?=$user_row["first_name"]. " " .$user_row["last_name"]?> 
+                                        </a></center>
+                                    </h5>
+                                </div>
                             </div>
+                   
+            <?php
+            }
+            ?>
                         </div>
                     </div>
-                </div>
-                <?php
-
-            }
+                 </div>
+             </div>
+            <?php
         } else {
             echo mysqli_error($conn);
         }
         ?>
-
-
-
-
-    
-</div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+ 
+    </div>
 
 <?php
 require_once("footer.php");

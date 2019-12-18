@@ -18,65 +18,104 @@ if ($user_request = mysqli_query($conn, $user_query) ) : //this only brings back
     while ($user_row = mysqli_fetch_array($user_request)) : // this put reslults in a nice array fname, lname etc
         //print_r($user_row);
 ?>
-<div class="container">
-    <div class="row">
-        <div class="col-2" id="profilepic">
-            <img src="<?php echo $user_row["profile_pic"]; ?>">
-        </div>
-     
-        <div class="col-2 profileinfo">
-            <?php
-            include_once($_SERVER["DOCUMENT_ROOT"] . "/includes/error_check.php");
-            ?>
-            <h5><?php echo $user_row["first_name"] . " " . $user_row["last_name"]; ?></h5>
-            <p id="email">
-            <?=$user_row["email"]?>
-            </p>
-            <hr>
+  <div class="container profile">
 
-            <p id="userinfo">
+  <div class="card-deck col-md-12">
+    <div class="col-md-3">
+        <div class="card profile_card" style="max-width: 18rem;">
+            <img src="<?php echo $user_row["profile_pic"];?>" class="card-img-top">
+            <div class="card-body">
+              
+            <?php
+            include_once($_SERVER["DOCUMENT_ROOT"] . "/includes/error_check.php"); //can this be anywhere
+            ?>
+            
+            <h3><?php echo $user_row["first_name"] . " " . $user_row["last_name"]; ?></h3>
+            
+            <ul class="list-group list-group-flush">
+            <h5><?=$user_row["email"]?></h5>
+            </ul>
+            <p class="bio" id="userinfo">
                <?=$user_row["address"]?><br>  <!-- echo a single line, get rid of php echo -->
                <?=($user_row["address2"] != "") ? $user_row["address2"]. '<br>':''?> <!-- if a2 is not empty then but br tag in -->
                <?=$user_row["city"] . " , " . $user_row["province_name"];?><br>  
                <?=$user_row["postal_code"]?><br>   
             </p>
-            
-            <hr>
+         
             <?php
             if($_SESSION["user_id"] == $user_id || $SESSION["role"] == 1) : // if user session is me (true) then you can edit profile 
                 ?>
                 <div class="btn-group">
-                    <a href="/edit_profile.php?user_id=<?=$user_row["id"]; ?>" class="btn btn-outline-primary">Edit Profile</a>
+                    <a href="/edit_profile.php?user_id=<?= $user_row["id"]; ?>">Edit Profile</a>
                 </div>
                 <?php
             endif;
             ?>
-        </div>
-        <div class="gallery col-md-9">
-        <div class="row">
-            <div class="col-md-6">
-                <img src="/assests/art/work13.png">
+              </div>
+          </div>
+     </div>
+
+      <div class="col-md-9">
+          <div class="row">
+            <div class="col-auto mb-5">
+              <div class="card project_card" style="width: 18rem;">
+                  <img src="/Assests/art1.jpg" class="card-img-top">
+                  <div class="card-body">
+                    <h5 class="card-title"><a href="#">Card title</a></h5>
+                  </div>
+             </div>
             </div>
-            <div class="col-md-4">
-                <img src="/assests/art/work12.jpg">
+
+            <div class="col-auto mb-5">
+              <div class="card project_card" style="width: 18rem;">
+                <img src="/Assests/art2.jpg" class="card-img-top">
+                <div class="card-body">
+                <h5 class="card-title"><a href="#">Card title</a></h5>
+                </div>
             </div>
-            <div class="col-md-4">
-                <img src="/assests/art/work11.jpg">
+          </div>
+        </div>                           
+          <div class="row">
+            <div class="col-auto mb-5">
+              <div class="card project_card" style="width: 18rem;">
+                  <img src="/Assests/art4.jpg" class="card-img-top">
+                  <div class="card-body">
+                  <h5 class="card-title"><a href="#">Card title</a></h5>
+                  </div>
+             </div>
             </div>
-        </div>
-        
-        </div>
+
+            <div class="col-auto mb-5">
+              <div class="card project_card" style="width: 18rem;">
+                <img src="/Assests/art5.jpg" class="card-img-top">
+                <div class="card-body">
+                <h5 class="card-title"><a href="#">Card title</a></h5>
+                </div>
+            </div>
+          </div>
+        </div>                           
+          <div class="row">
+            <div class="col-auto mb-5">
+              <div class="card project_card" style="width: 18rem;">
+                  <img src="/Assests/art6.png" class="card-img-top">
+                  <div class="card-body">
+                  <h5 class="card-title"><a href="#">Card title</a></h5>
+                  </div>
+             </div>
+            </div>
+
+            <div class="col-auto mb-5">
+              <div class="card project_card" style="width: 18rem;">
+                <img src="/Assests/art7.jpg" class="card-img-top">
+                <div class="card-body">
+                <h5 class="card-title"><a href="#">Card title</a></h5>
+                </div>
+            </div>
+          </div>
+        </div>                           
+  </div>
 
 
-    </div>
-
-
-
-
-
-
-   
-</div>
 
 
 
@@ -92,12 +131,29 @@ if ($user_request = mysqli_query($conn, $user_query) ) : //this only brings back
 
 
 
+
+
+         
+  
+
+
+
+
+  
 
 
 <?php
 endwhile;
+?>
+
+</div>
+</div>
+<?php
 else :
     echo mysqli_error($conn);
 endif;
 require_once("footer.php");
 ?>
+
+
+
