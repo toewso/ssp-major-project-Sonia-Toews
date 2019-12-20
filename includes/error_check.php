@@ -1,4 +1,6 @@
- <?php
+<?php
+
+if(!empty($errors)) $_GET["errors"] = $errors;
 
 echo "<div class='container alerts'>";
 if( isset($_GET["errors"]) ) {

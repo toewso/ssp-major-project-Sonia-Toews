@@ -1,4 +1,3 @@
-@charset "UTF-8";
 /*!
  * Bootstrap v4.3.1 (https://getbootstrap.com/)
  * Copyright 2011-2019 The Bootstrap Authors
@@ -10598,18 +10597,6 @@ nav {
           box-shadow: 0 2px 2px -2px rgba(0, 0, 0, 0.2);
 }
 
-nav button {
-  float: right;
-}
-
-nav .navbar-right {
-  float: right;
-}
-
-nav ul {
-  list-style-type: none;
-}
-
 nav li {
   float: right;
   list-style-type: none;
@@ -10623,9 +10610,21 @@ nav a {
 
 nav a:hover {
   color: #3E9688;
+  text-decoration: none;
 }
 
-nav .dropdown .fa-lg {
+nav .dropdown-menu {
+  border: none;
+  padding: 20px 20px !important;
+  z-index: 10000;
+}
+
+nav .dropdown-menu .nav-text i {
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+nav .dropdown-menu .fa-lg {
   font-size: 1.2em;
   padding-right: 5px;
   line-height: .75em;
@@ -10634,12 +10633,6 @@ nav .dropdown .fa-lg {
 
 nav .search-container {
   background-color: transparent;
-  padding-top: 50px;
-}
-
-nav .search-container .input-group {
-  float: right;
-  border: none;
 }
 
 nav .search-container .form-control {
@@ -10649,7 +10642,6 @@ nav .search-container .form-control {
 nav .search-container #submit {
   color: #51BDAB !important;
   background: white !important;
-  font-size: 16px;
   border: none !important;
   cursor: pointer;
 }
@@ -10660,6 +10652,23 @@ nav .search-container #submit .fa-search {
 
 nav .search-container #submit:hover {
   color: #30756a;
+}
+
+nav .navbar-toggler-icon i {
+  color: #51BDAB;
+}
+
+@media all and (max-width: 830px) {
+  .dropdown-menu {
+    float: right !important;
+    margin-right: 0;
+    width: 50px;
+    background-color: transparent;
+    height: 150px !important;
+  }
+  .search-container {
+    padding-top: 20px;
+  }
 }
 
 /****************************************  ERROR CHECK  **********************************************************
@@ -10680,110 +10689,6 @@ ERROR CHECK
   display: inline-block;
 }
 
-/**************************** LANDING PAGE *******************************************************************
-
-LANDING PAGE
-
-*****************************************************************************************************************/
-.landing_page {
-  background-image: url(/Assests/background9.png);
-  background-repeat: no-repeat;
-  background-size: cover;
-}
-
-nav .nav2 .nb {
-  display: inline-block;
-}
-
-nav .nav2 ul {
-  list-style-type: none;
-  margin: 0;
-  padding: 15px 9px;
-  overflow: hidden;
-  background-color: rgba(0, 0, 0, 0);
-  position: fixed;
-  top: 0;
-  width: 100%;
-}
-
-nav .nav2 .ic {
-  float: right;
-}
-
-nav .nav2 .ic a {
-  color: white;
-  text-align: center;
-  padding: 14px 7px;
-  text-decoration: none;
-}
-
-nav .nav2 .ic a:hover {
-  color: #51BDAB;
-  text-decoration: none;
-}
-
-nav .nav2 .ic a {
-  width: 35px;
-  height: 35px;
-  font-size: 20px;
-  color: #ffffff;
-  margin-left: 3px;
-}
-
-nav .nav2 .ic a:hover {
-  transform: scale(1.1);
-  -webkit-transform: scale(1.1);
-}
-
-.landing h1 {
-  color: white;
-  padding-top: 150px;
-  text-align: right;
-  font-weight: 600;
-  font-size: 90px;
-  letter-spacing: 8px;
-}
-
-.landing h2 {
-  color: white;
-  text-align: right;
-  font-weight: 300;
-  font-size: 55px;
-  line-height: 60px;
-  padding-bottom: 10px;
-}
-
-.landing p {
-  color: white;
-  text-align: right;
-}
-
-.landing p .already {
-  color: white;
-  font-weight: 300;
-  font-style: italic;
-  font-size: 14px;
-}
-
-.landing p .already p {
-  padding-bottom: 10px;
-}
-
-.landing p .btn a {
-  color: white;
-  text-decoration: none;
-}
-
-.landing p .btn-outline-warning:hover {
-  background-color: white;
-  border-color: white;
-  /*set the color you want here*/
-}
-
-.landing p .btn-outline-warning:hover a {
-  color: #4271ae;
-}
-
 /******************      LOG IN   ******************************************************************************
 
 LOG IN
@@ -10799,7 +10704,15 @@ LOG IN
 .log {
   display: block;
   text-align: center;
-  padding-top: 80px;
+  padding-top: 250px;
+}
+
+.log #welcome {
+  color: white;
+}
+
+.log .btn-success {
+  color: white;
 }
 
 .log .two {
@@ -10857,198 +10770,9 @@ LOG IN
   color: white;
 }
 
-/*  .follow {    OPTION 1
-        a.btn {
-            background: $success;
-            border-radius: 4px;
-            color: white;
-            display: inline-block;
-            padding: 6px 30px 8px;
-            position: relative;
-            text-decoration: none;
-            transition: all 0.1s 0s ease-out;
-          }
-          
-          .no-touch a.btn:hover {
-            background: lighten($success,2.5);
-            box-shadow: 0px 8px 2px 0 rgba(0, 0, 0, 0.075);
-            transform: translateY(-2px);
-            transition: all 0.25s 0s ease-out;
-          }
-          
-          .no-touch a.btn:active,
-          a.btn:active {
-            background: darken($success,2.5);
-            box-shadow: 0 1px 0px 0 rgba(255,255,255,0.25);
-            transform: translate3d(0,1px,0);
-            transition: all 0.025s 0s ease-out;
-          }
-          
-          .cards {
-            margin: 80px auto;
-            max-width: 960px;
-            text-align: center;
-          }
-          
-          .card {
-            background: none;
-            border-top-width: 0px;
-            border-right-width: 0px;
-            border-left-width: 0px;
-            border-bottom-left-radius: 5px;
-            border-bottom-right-radius: 5px;
-            display: inline-block;
-            margin: 8px;
-            max-width: 300px;
-            perspective: 1000;
-            position: relative;
-            text-align: left;
-            transition: all 0.3s 0s ease-in;
-            z-index: 1;
-          
-            img {
-              max-width: 300px;
-              border-top-left-radius: 5px;
-              border-top-right-radius: 5px;
-            }
-          
-            .card-title {
-              background: white;
-              border-bottom-left-radius: 5px;
-              border-bottom-right-radius: 5px;
-              padding: 6px 15px 10px;
-              position: relative;
-              z-index: 0;
-              
-              a.toggle-info {
-                border-radius: 32px;
-                height: 32px;
-                padding: 0;
-                position: absolute;
-                right: 15px;
-                top: 10px;
-                width: 32px;
-                
-                span {
-                  background: white;
-                  display: block;
-                  height: 2px;
-                  position: absolute;
-                  top: 16px;
-                  transition: all 0.15s 0s ease-out;
-                  width: 12px;
-                }
-                
-                span.left {
-                  right: 14px;
-                  transform: rotate(45deg);
-                }
-                span.right {
-                  left: 14px;
-                  transform: rotate(-45deg);
-                }
-              }
-              
-              h2 {
-                font-size: 24px;
-                font-weight: 700;
-                letter-spacing: -0.05em;
-                margin: 0;
-                padding: 0;
-                
-                small {
-                  display: block;
-                  font-size: 18px;
-                  font-weight: 600;
-                  letter-spacing: -0.025em;
-                }
-              }
-            }
-            .card-title {
-            margin-bottom: 0;
-            padding-bottom: 20px;
-            }
-            div.card-description {
-              padding: 0 15px 10px;
-              position: relative;
-              font-size: 14px;
-            }
-          
-            div.card-actions {
-                box-shadow: 0 2px 0px 0 rgba(0,0,0,0.075);
-              padding: 10px 15px 20px;
-              text-align: center;
-            }
-            
-            div.card-flap {
-              background: darken(white,15);
-              position: absolute;
-              width: 100%;
-              padding-top: 10px;
-              transform-origin: top;
-              transform: rotateX(-90deg);
-            }
-            div.flap1 {
-              transition: all 0.3s 0.3s ease-out;
-              z-index: -1;
-            }
-            div.flap2 {
-              transition: all 0.3s 0s ease-out;
-              z-index: -2;
-            }
-            
-          }
-          
-          div.cards.showing {
-            div.card {
-              cursor: pointer;
-              opacity: 0.6;
-              transform: scale(0.88);
-            }
-          }
-          
-          .no-touch  div.cards.showing {
-            div.card:hover {
-              opacity: 0.94;
-              transform: scale(0.92);
-            }
-          }
-          
-          div.card.show {
-            opacity: 1 !important;
-            transform: scale(1) !important;
-          
-            div.card-title {
-              a.toggle-info {
-                background: $success!important;
-                span {
-                  top: 15px;
-                }
-                span.left {
-                  right: 10px;
-                }
-                span.right {
-                  left: 10px;
-                }
-              }
-            }
-            .card-flap {
-              background: white;
-              transform: rotateX(0deg);
-            }
-            .flap1 {
-              transition: all 0.3s 0s ease-out;
-            }
-            .flap2 {
-              transition: all 0.3s 0.2s ease-out;
-            }
-          }
-    }*/
-.follow h1 {
-  color: #46448F;
-  padding-bottom: 20px;
-  text-align: center;
-  font-weight: 400;
+.follow {
+  padding-top: 200px;
+  padding-bottom: 200px;
 }
 
 .follow .row {
@@ -11153,6 +10877,19 @@ LOG IN
   }
 }
 
+@media all and (max-width: 830px) {
+  .card {
+    margin-bottom: 15px;
+  }
+  .log .login_form {
+    padding: 20px;
+  }
+  .log form {
+    padding-bottom: 120px;
+    padding-top: 30px;
+  }
+}
+
 /******************   SIGN UP     *******************************************************************************
 
 SIGN UP
@@ -11173,6 +10910,7 @@ SIGN UP
 .signup .row {
   display: inline-block;
   text-align: left;
+  padding-bottom: 50px;
 }
 
 .signup form {
@@ -11182,9 +10920,6 @@ SIGN UP
   padding-top: 50px;
   padding-right: 50px;
   padding-left: 50px;
-  /* This is the default state */
-  /* This is the checked state */
-  /* active state i.e. displayed while the mouse is being pressed down */
 }
 
 .signup form .form-group {
@@ -11205,20 +10940,6 @@ SIGN UP
 .signup form label {
   color: white;
   font-size: 16px;
-}
-
-.signup form .custom-radio .custom-control-label::before {
-  background-color: white;
-}
-
-.signup form .custom-radio .custom-control-input:checked ~ .custom-control-label::before,
-.signup form .custom-radio .custom-control-input:checked ~ .custom-control-label::after {
-  background-color: #E26151;
-  border-radius: 50%;
-}
-
-.signup form .custom-radio .custom-control-input:active ~ .custom-control-label::before {
-  background-color: #cf8379;
 }
 
 .signup form .custom-control-label::before {
@@ -11248,6 +10969,50 @@ SIGN UP
   padding-top: 30px;
 }
 
+.nav2 .nb {
+  display: inline-block;
+}
+
+.nav2 ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 15px 9px;
+  overflow: hidden;
+  background-color: rgba(0, 0, 0, 0);
+  position: fixed;
+  top: 0;
+  width: 100%;
+}
+
+.nav2 .ic {
+  float: right;
+}
+
+.nav2 .ic a {
+  color: white;
+  text-align: center;
+  padding: 14px 7px;
+  text-decoration: none;
+}
+
+.nav2 .ic a:hover {
+  color: #51BDAB;
+  text-decoration: none;
+}
+
+.nav2 .ic a {
+  width: 35px;
+  height: 35px;
+  font-size: 20px;
+  color: #ffffff;
+  margin-left: 3px;
+}
+
+.nav2 .ic a:hover {
+  transform: scale(1.1);
+  -webkit-transform: scale(1.1);
+}
+
 /*************   MEMBERS    *************************************************************************************
 
 MEMBERS
@@ -11274,6 +11039,21 @@ MEMBERS
   padding-bottom: 20px;
 }
 
+@media all and (max-width: 830px) {
+  .members .card-columns {
+    padding-left: 0px !important;
+    padding-right: 0px !important;
+  }
+  .members .row {
+    margin-left: 0px;
+  }
+}
+
+.card-columns {
+  padding-left: 30px !important;
+  padding-right: 30px !important;
+}
+
 .mem_cards h1 {
   color: #46448F;
   padding-bottom: 20px;
@@ -11294,6 +11074,7 @@ MEMBERS
   transition: transform .2s, -webkit-transform .2s;
   border: none;
   background-color: #51BDAB;
+  margin-bottom: 3rem;
 }
 
 .mem_cards .card-body {
@@ -11422,6 +11203,13 @@ PROFILE
   font-size: 16px;
 }
 
+.profile .profile_card .card-body .list-group {
+  -webkit-box-orient: horizontal !important;
+  -webkit-box-direction: normal !important;
+      -ms-flex-direction: row !important;
+          flex-direction: row !important;
+}
+
 .profile .profile_card .card-body p {
   color: gray;
   font-size: 16px;
@@ -11474,30 +11262,133 @@ PROFILE
           transform: scale(1.02);
 }
 
-/**************    EDIT POST   ***********************************************************************************
+@media all and (max-width: 830px) {
+  .follow .row {
+    padding: 0;
+  }
+}
 
-EDIT POST
+/**************    EDIT PROFILE   ***********************************************************************************
+
+EDIT PROFILE
 
 *****************************************************************************************************************/
-.editprofile h1 {
+.editprofile {
+  display: block;
+  text-align: center;
   padding-top: 50px;
+}
+
+.editprofile .row {
+  padding-bottom: 50px;
+  text-align: left;
+}
+
+.editprofile h1 {
   color: #46448F;
   font-weight: 400;
 }
 
-.editprofile .uploadimage {
+.editprofile form {
+  background-color: white;
+  padding: 50px;
+  border-radius: 15px;
+  margin: auto;
+}
+
+.editprofile form .uploadimage {
   padding: 15px 0;
 }
 
-.editprofile form-group #addfile {
+.editprofile form form-group #addfile {
   padding-bottom: 5px;
 }
 
-.editprofile .btn:hover {
+.editprofile form .btn:hover {
   color: white;
 }
 
-.editprofile .btn-success {
+.editprofile form .btn-success {
+  color: white;
+}
+
+.editprofile .btn_password a {
+  color: #51BDAB;
+}
+
+.editprofile .btn_password {
+  float: right;
+  padding-right: 0;
+}
+
+.editprofile .btn_back {
+  padding-left: 0;
+}
+
+.editprofile .btn_back a {
+  color: #17a2b8;
+}
+
+.editprofile .btn_delete {
+  float: right;
+  padding-right: 0;
+}
+
+.editprofile .btn_delete:hover {
+  text-decoration: underline;
+}
+
+@media (max-width: 600px) {
+  .editprofile h1 {
+    font-size: 24px;
+  }
+  .profile_btns {
+    padding-top: 20px;
+  }
+  .profile_btns .btn-secondary {
+    padding: 2px 6px;
+  }
+}
+
+/**************    RESET PASSWORD   ***********************************************************************************
+
+RESET PASSWORD
+
+*****************************************************************************************************************/
+.password {
+  display: block;
+  text-align: center;
+  padding-top: 50px;
+}
+
+.password .row {
+  padding-bottom: 50px;
+  text-align: left;
+}
+
+.password .password_form {
+  background-color: white;
+  padding: 50px;
+  border-radius: 15px;
+  margin: auto;
+}
+
+.password .password_form h1 {
+  padding-bottom: 30px;
+  color: #46448F;
+  font-size: 18px !important;
+}
+
+.password .password_form .btn_passwords .btn_cancel {
+  padding-left: 0;
+}
+
+.password .password_form .btn_passwords .btn_cancel a {
+  color: #E26151;
+}
+
+.password .password_form .btn_passwords .btn_update {
+  float: right;
   color: white;
 }
 
@@ -11516,6 +11407,7 @@ ADD POST
   display: inline-block;
   text-align: left;
   width: 100%;
+  padding-bottom: 50px;
 }
 
 .addpost .addpost_form {
@@ -11572,6 +11464,7 @@ EDIT POST
   display: block;
   text-align: center;
   padding-top: 50px;
+  padding-bottom: 50px;
 }
 
 .editpost h2 {
@@ -11658,8 +11551,8 @@ ARTICLES
   color: #46448F;
 }
 
-.articles h2 {
-  padding-bottom: 30px;
+.articles .search_h2 {
+  margin-bottom: 100px;
   color: #46448F;
   font-size: 24px;
   font-weight: 300;
@@ -11697,6 +11590,10 @@ ARTICLES
 
 .articles .row {
   width: 100%;
+}
+
+.articles .card-deck {
+  padding-bottom: 50px;
 }
 
 .articles .card-deck .card {
@@ -11770,6 +11667,7 @@ ARTICLES
   display: inline-block;
   text-align: left;
   width: 100%;
+  padding-bottom: 50px;
 }
 
 .articles .edit_article .articleform {
@@ -11822,6 +11720,27 @@ ARTICLES
   padding-left: 20px;
 }
 
+@media (max-width: 600px) {
+  .card-deck {
+    margin: auto;
+  }
+  .search-container {
+    padding-bottom: 30px;
+  }
+  .search_h2 {
+    margin-bottom: 100px;
+    color: #46448F;
+    font-size: 24px;
+    font-weight: 300;
+  }
+  .articles .edit_article .articleform .featured_image {
+    height: 200px;
+    -o-object-fit: cover;
+       object-fit: cover;
+    border-radius: 15px;
+  }
+}
+
 /*************   FOOTER    ***************************************************************************************
 
 FOOTER
@@ -11834,7 +11753,7 @@ FOOTER
   background-size: 100% 100%;
 }
 
-​ .footer-distributed {
+.footer-distributed {
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
   width: 100%;
@@ -11879,7 +11798,7 @@ FOOTER
 }
 
 .footer-distributed .footer-right {
-  margin-top: 6px;
+  padding-top: 30px;
 }
 
 .footer-distributed .footer-right a {

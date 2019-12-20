@@ -24,7 +24,8 @@ if( isset($_POST["action"]) && $_POST["action"] == "login") :
         $query_users = "SELECT * 
                         FROM users 
                         WHERE email = '".$email."'
-                            AND password = '".$password."'";
+                            AND password = '".$password."'
+                            LIMIT 1";
         $user_result = mysqli_query($conn, $query_users);
         
         // check if user was in database
@@ -40,7 +41,7 @@ if( isset($_POST["action"]) && $_POST["action"] == "login") :
                 session_destroy();
                 session_start();
 
-                $_SESSION["email"] = $user["email"]; // session will keep the email
+                $_SESSION["email"] = $user["email"]; 
                 $_SESSION["role"] = $user["role"];
                 $_SESSION["user_id"] = $user["id"];
 
@@ -70,11 +71,15 @@ elseif( isset($_POST["action"]) && $_POST["action"] == "signup") :
     $city        = $_POST["city"];
     $province_id = ( isset($_POST["province"]) ) ? $_POST["province"] : 0 ; 
     $postal_code = $_POST["postal_code"];
-    $agree_terms = $_POST["agree_terms"];
+   
     $newsletter  = $_POST["newsletter"];
 
     //echo "<pre>";
     //print_R($_SERVER);
+
+    $date_created = date("Y-m-d H:i:s");
+    $role = (isset($_POST["role"])) ? $_POST["role"] : 3;
+
  
 
   if($password == $password2 && strlen($password) > 7) {
@@ -89,23 +94,26 @@ elseif( isset($_POST["action"]) && $_POST["action"] == "signup") :
                                                     role,
                                                     first_name,
                                                     last_name,
+                                                    province_id,
                                                     address,
                                                     address2,
                                                     city,
-                                                    province_id,
                                                     postal_code,
-                                                    newsletter) 
+                                                    newsletter,
+                                                    date_created) 
                                             VALUES ('$email',
                                                     '$password',
-                                                    2, 
+                                                    $role,
                                                     '$first_name', 
                                                     '$last_name', 
+                                                    $province_id,
                                                     '$address', 
                                                     '$address2', 
                                                     '$city', 
-                                                    $province_id, 
                                                     '$postal_code', 
-                                                    $newsletter)";
+                                                    $newsletter,
+                                                    '$date_created'
+                                                    )";
                 if( !mysqli_query($conn, $new_user_query)) {
                     echo mysqli_error($conn);
                 } else {
@@ -115,7 +123,7 @@ elseif( isset($_POST["action"]) && $_POST["action"] == "signup") :
                     session_start();
                     // grab ID and all userinfo from just signing up and carry it through session - all pages
                     $_SESSION["user_id"] = $user_id;
-                    $_SESSION["role"] = 2;
+                    $_SESSION["role"] = $role;
                     $_SESSION["email"] = $email;
 
                     header("Location: http://" . $_SERVER["SERVER_NAME"]);
@@ -133,19 +141,14 @@ elseif( isset($_POST["action"]) && $_POST["action"] == "signup") :
     }
 
   
-
-    // if logout button clicked
-elseif( isset($_REQUEST["action"]) && $_REQUEST["action"] == "logout") :
+ // IF LOGOUT BUTTON CLICKED
+ elseif( isset($_REQUEST["action"]) && $_REQUEST["action"] == "logout" ) :
     session_destroy();
-    header("Location: http://" . $_SERVER["SERVER_NAME"] . "?" . $query);
+    header("Location: http://" . $_SERVER["SERVER_NAME"]);
 endif;
-
-if( !empty($errors)) {
-    $query = http_build_query( array("errors" => $errors));
-    header("Location:" . strtok($_SERVER["HTTP_REFERER"], "?" ) . "?" . $query);
+if( !empty($errors) ) {
+    $query = http_build_query( array("errors" => $errors) );
+    header("Location: " . strtok($_SERVER["HTTP_REFERER"], "?") . "?" . $query);
 }
-
-//getting local host and refreshing
-
-
+mysqli_close($conn);
 ?>
