@@ -88,7 +88,7 @@ if ($user_request = mysqli_query($conn, $user_query) ) : //this only brings back
                         </div>
                 </div>
                 <?php
-                if($_SESSION["user_id"] == $user_id || $SESSION["role"] == 1) : // if user session is me (true) then you can edit profile 
+                if($_SESSION["user_id"] == $user_id || $_SESSION["role"] == 1) : // if user session is me (true) then you can edit profile 
                     ?>
                     <div class="profile_btns">
                         <div class="form-group">

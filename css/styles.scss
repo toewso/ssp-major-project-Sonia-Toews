@@ -163,7 +163,7 @@ LOG IN
 .log {
 display: block;
 text-align: center;
-padding-top: 250px;
+padding-top: 150px;
 
 #welcome {
   color: white;
@@ -323,11 +323,18 @@ padding-top: 250px;
 
 
 @media all and (max-width: 830px) {
+     
+  .index_page {
+    padding-bottom: 10px;
+  }
+  
       .card {
         margin-bottom: 15px;
       }
 
       .log {
+
+        padding-top: 50px;
       
         .login_form {
           padding: 20px;
@@ -337,7 +344,25 @@ padding-top: 250px;
           padding-bottom: 120px;
           padding-top: 30px;
         }
+
+        #forgot {
+          padding-right: 50px;
+          padding-left: 45px;
+      }
+
+      #account  {
+          margin-top: 10px;
+      }
+
     }
+
+    .log .login_form {
+      width: 250px;
+  }
+
+  .log .login_form input {
+    width: 210px;
+}
 }
 
 
@@ -466,6 +491,15 @@ SIGN UP
     .ic a:hover{transform:scale(1.1); -webkit-transform:scale(1.1);}
   }
 
+
+  @media all and (max-width: 830px) {
+    .signup form {
+      padding-left: 15px;
+      padding-right: 15px;
+    }
+
+  }
+
 /*************   MEMBERS    *************************************************************************************
 
 MEMBERS
@@ -507,13 +541,17 @@ MEMBERS
 }
 
 
+@media all and (max-width: 1140px) {
 .card-columns {
   padding-left: 30px !important;
   padding-right: 30px !important;
  
 }
 
+}
+
 .mem_cards {
+
 
   h1 {
       color: $secondary;
@@ -612,6 +650,23 @@ MEMBERS
     15%,85%{opacity:1;top:30px}
   }
 
+}
+
+
+@media all and (max-width: 830px) {
+   .members {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+
+    .container  {
+      padding-left: 0 !important;
+      padding-right: 0 !important;
+
+
+    }
+ 
+  }
+    
 }
 
 
@@ -806,6 +861,12 @@ EDIT PROFILE
     }
 }
 
+@media (max-width: 600px) {
+  .editprofile form {
+    padding: 20px;
+   
+  }
+}
  
   
 
@@ -854,6 +915,15 @@ RESET PASSWORD
     } 
   }
 }
+
+
+@media (max-width: 600px) {
+  .password .password_form {
+    padding: 20px;
+   
+  }
+}
+ 
 /**************    ADD POST    ***********************************************************************************
 
 ADD POST
@@ -882,6 +952,13 @@ ADD POST
       padding-bottom: 30px;
       color: #46448F;
     }
+
+    @media (max-width: 600px) {
+      h1 {
+        font-size: 24px;
+      }
+    }
+    
 
     #addfile {
         padding-bottom: 5px;   
@@ -913,6 +990,9 @@ ADD POST
 
   }
 }
+
+
+
  
 /**************    EDIT POST   ***********************************************************************************
 
@@ -1003,6 +1083,13 @@ EDIT POST
     
 }
  
+@media (max-width: 600px) {
+  .editpost .editform {
+    padding: 10px;
+   
+  }
+}
+ 
 
 
 
@@ -1056,10 +1143,11 @@ ARTICLES
       }
   }
 
-
-  .row {
+@media (max-width: 1140px) {
+  .article .row {
     width: 100%;
   }
+}
 
   .card-deck {
     padding-bottom: 50px;
@@ -1202,6 +1290,10 @@ ARTICLES
     font-size: 24px;
     font-weight: 300;
   }
+
+ 
+
+  
   .articles .edit_article .articleform .featured_image {
     height: 200px;
     object-fit: cover;

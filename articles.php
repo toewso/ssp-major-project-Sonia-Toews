@@ -124,7 +124,7 @@ require_once("header.php");
                 for ($i = 1; $i <= $page_count; $i++) {
                     echo " <li class='page-item";
                     if($current_page == $i) echo " active";
-                    echo "'><a class='page-link' href='/articles.php?page=$i".$get_search."'>Page $i</a></li>";
+                    echo "'><a class='page-link' href='/articles.php?page=$i".$get_search."'>$i</a></li>";
                 }
                 
                 if ($current_page < $page_count) {
